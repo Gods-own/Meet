@@ -1,0 +1,21 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block form %}
+<div>
+    {% if message %}
+    <div>{{message}}</div>
+    {% endif %}
+    <form method="POST" action="{% url 'addInterests' id %}">
+        {% csrf_token %}
+        {% for key, values in hobbies.items %}
+    <div>
+        <input id="hobby{{forloop.counter}}" value="{{key}}" name="hobby" type="checkbox">
+        <div><label for="hobby{{forloop.counter}}">{{key}}</label></div>
+        <img src="{{values}}" width="100" height="100">
+    </div>
+    {% endfor %}
+    <button type="submit">Done</button>
+    </form>
+</div>
+{% endblock %}

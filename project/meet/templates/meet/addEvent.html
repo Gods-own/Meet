@@ -1,0 +1,51 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="add-form">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-div">
+            <label for="title">Title</label>
+            <input class="inputs input-height" id="title" type="text" name="title">        
+        </div>
+        <div class="input-div">
+            <label for="venue">Venue</label>
+            <input class="inputs input-height" id="venue" type="text" name="venue">        
+        </div>
+        <div class="input-div">
+            <label for="description">Description</label>
+            <input class="inputs input-height" id="description" type="text" name="description">        
+        </div>
+        <div class="input-div">
+            <label for="eventDate">Event Date</label>
+            <input class="inputs input-height" id="eventDate" type="date" name="date">
+        </div>
+        <div class="input-div">
+            <label for="eventTime">Event Time</label>
+            <input class="inputs input-height" id="eventTime" type="time" name="time">
+        </div>
+        <div class="input-div">
+            <label for="hobby">Hobby</label>
+            <select name="hobbies" class="inputs input-height" id="hobby">
+                <option selected value="Select">Select</option>
+                {% for interest in interests %}
+                <option value="{{interest.hobbies}}">{{interest.hobbies|capfirst}}</option>
+                {% endfor %}
+              </select>        
+        </div>
+        <div class="input-div">
+            <label for="location">Country</label>
+            <select name="location" class="inputs input-height" id="location">
+                <option selected value="Select">Select</option>
+                {% for country in countries %}
+                <option value="{{country.country}}">{{country.country|capfirst}}</option>
+                {% endfor %}
+              </select>        
+        </div>
+        <div class="form-btn">
+            <button class="btn btn-success" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

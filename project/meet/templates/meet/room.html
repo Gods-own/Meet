@@ -1,0 +1,75 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="msg-div">
+
+    <header class="msg-header">
+    <div>
+        <div class="message-img-div">
+            <img src="{% if user2.userImage %}{{user2.userImage.url}}{% else %}#{% endif %}">
+            <p><a href="{% url 'person' user2.id %}">{{user2.username}}</a></p>
+        </div>
+    </div>
+    <ul class="msg-header-ul">
+        <li><a href=""><span class="las la-phone"></span></a></li>
+        <li><a href=""><span class="las la-video"></span></a></li>
+    </ul>
+</header>
+
+ <div class="msg-div-last-child" id="chat-messages">
+
+
+    {% for message in messages %}
+    {% if message.username.username|stringformat:"s" != request.user|stringformat:"s" %}
+     <div class="msg-box chat-left">
+         <img class="msg-box-img" src="{% if message.username.userImage %}{{ message.username.userImage.url}}{% else %}#{% endif %}">
+         <div class="msg-box-div">
+             <h4>{{message.username.username}}</h4>
+             <pre>{{message.content}}</pre>
+             <small>{{message.date_added}}</small>
+         </div>
+     </div>
+     {% else %}
+     <div class="msg-box chat-right">
+        <img class="msg-box-img" src="{% if message.username.userImage %}{{ message.username.userImage.url}}{% else %}#{% endif %}">
+        <div class="msg-box-div">
+            <h4>{{message.username.username}}</h4>
+            <pre>{{message.content}}</pre>
+            <small>{{message.date_added}}</small>
+        </div>
+    </div>
+     {% endif %}
+
+     <div class="clear"></div>
+     {% endfor %}
+
+ </div>
+
+ <div class="chat-form">
+    <form class="form-message" method="POST">
+        {% csrf_token %}
+        <input id="chat-message-input" type="text">
+        <button id="chat-message-submit" type="submit">Send</button>
+    </form>
+</div>
+
+</div>
+
+
+    {{room_name|json_script:"json-roomname"}}
+    {{username|json_script:"json-username"}}
+    {{userid1|json_script:"json-userid1"}}
+    {{userid2|json_script:"json-userid2"}}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'meet/room.js' %}"></script>
+<script>
+    document.querySelectorAll('nav').forEach(function(navigation) {
+        navigation.style.display = 'none';
+    })
+</script>
+{% endblock %}

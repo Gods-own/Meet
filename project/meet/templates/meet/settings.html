@@ -1,0 +1,69 @@
+{% extends "meet/layout.html" %}
+
+{% block body %}
+   <div class="allposts-div">
+    <div>
+        <h4>Change color theme</h4>
+        <div class="change-theme">
+            <ul> 
+                <li class="setting-list color">
+                    <div class="list-div">
+                        <p><i style="font-size: 1.2rem;" class="lar la-moon"></i></i> Dark mode</p> 
+                    <button class="btn-icon">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                          </label>
+                    </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+       </div>
+    
+       <div>
+        <h4>Edit Profile</h4>
+        <div class="edit-profile">
+            <ul>
+                <li class="setting-list">
+                    <div class="list-div">
+                        <p>Change Username</p> 
+                        <button class="btn-icon caret-btn1"><i class="las la-caret-right right1"></i><i class="las la-caret-down down1"></i></button>
+                    </div>
+                    <form class="username-form" method="POST" action="{% url 'settings' %}">
+                        {% csrf_token %}
+                        <input class="input-update" name="username" type="text" placeholder="Username">
+                        <button class="update-btn purple-btn" type="submit">Update</button>
+                    </form>
+                </li>
+                <li class="profile-pic setting-list">
+                    <div class="list-div">
+                        <p>Change Profile Picture</p> 
+                        <button class="btn-icon caret-btn2"><i class="las la-caret-right right2"></i><i class="las la-caret-down down2"></i></button>
+                    </div>
+                    <form class="profilepic-form" method="POST" action="{% url 'settings' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input class="input-update" name="image" type="file">
+                        <button class="update-btn purple-btn" type="submit">Update</button>
+                    </form>
+                    </li>
+            </ul>
+        </div>
+       </div>
+   </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.querySelector('.caret-btn1').addEventListener('click', function() {
+            document.querySelector('.right1').classList.toggle('hide')
+            document.querySelector('.down1').classList.toggle('show')
+            document.querySelector('.username-form').classList.toggle('show')
+        })
+        document.querySelector('.caret-btn2').addEventListener('click', function() {
+            document.querySelector('.right2').classList.toggle('hide')
+            document.querySelector('.down2').classList.toggle('show')
+            document.querySelector('.profilepic-form').classList.toggle('show')
+        })
+    </script>
+{% endblock %}

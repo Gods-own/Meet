@@ -1,0 +1,38 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<article class="card">
+    <a class="listing-link" href="">
+    <img src="{% if activity.picture %}{{activity.picture.url}}{% else %}#{% endif %}" width="100" height="100">
+    <div class="card-body">
+        <h5 class="title">{{activity.activity}}</h5>
+    <!-- <picture>
+        <source srcset="{{auction.product}}">
+        <source srcset="{{auction.product}}">
+        <img src="{{auction.product}}">
+    </picture> -->
+    <p>{{activity.activity}}</p>
+    <p>{{activity.hobby.hobbies}}</p>
+    <!-- <p>Listed by {{auction.seller}}</p> -->
+    <div class="icons-div">
+        <a class="like-buttons" data-id={{activity.id}}>
+            <button data-id="{{activity.id}}colored" class="colored-heart btn-icon"><i class="las la-heart" aria-hidden="true"></i></button>
+            <button data-id="{{activity.id}}uncolored" class="uncolored-heart btn-icon"><i class="lar la-heart"></i></button>
+            <small id="like{{activity.id}}" class="show-like">{{activity.likes}}</small>
+        </a>
+        </div>
+    <button>View</button>
+    <!-- <p>{{auction.date_created}}</p> -->
+    </div>
+    </a>
+</article>
+
+{% endblock %}
+
+{% if user.is_authenticated %}
+{% block script %}
+<script src="{% static 'meet/script.js' %}"></script>
+{% endblock %}
+{% endif %}

@@ -1,0 +1,77 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="profile-div">
+        <div class="profile-header">
+            <img class="profile-page-img" src="{% if person.userImage %}{{person.userImage.url}}{% else %}#{% endif %}">
+            <div class="profile-info">
+                <h1>{{person.username}}</h1>
+                <div class="profile-interests">
+                    {% for interest in interests %}
+                    <p>{{interest.hobbies}}</p>
+                    {% endfor %}
+                </div>
+               {% if person.introduction != None %}
+               <p>{{person.introduction}}</p>
+               {% endif %}
+            </div>
+        </div>
+        {% if request.user|stringformat:"s" != person.username %}
+        <button class="messagebtn"><a>Message</a></button>
+        {% else %}
+        <button style="display: none;" class="messagebtn"><a>Message</a></button>
+        {% endif %}
+    <div>
+        
+    </div>
+
+</div>
+     <hr>
+
+     <div class="activity-section">
+        {% for activity in activities %}
+    <article class="card">
+        <a class="listing-link" href="{% url 'viewPost' activity.id %}">
+        <img src="{% if activity.picture %}{{activity.picture.url}}{% else %}#{% endif %}" width="100" height="100">
+        <!-- <div class="card-body">
+            <h5 class="title"><a href="{% url 'person' activity.poster.id %}">{{activity.poster.username}}</a></h5>
+        <picture>
+            <source srcset="{{auction.product}}">
+            <source srcset="{{auction.product}}">
+            <img src="{{auction.product}}">
+        </picture>
+        <p>{{activity.activity}}</p>
+        <p>{{activity.hobby.hobbies}}</p>
+        <p>Listed by {{auction.seller}}</p>
+        <div class="icons-div">
+            <a class="like-buttons" data-id={{activity.id}}>
+                <button data-id="{{activity.id}}colored" class="colored-heart btn-icon"><i class="las la-heart" aria-hidden="true"></i></button>
+                <button data-id="{{activity.id}}uncolored" class="uncolored-heart btn-icon"><i class="lar la-heart"></i></button>
+                <small id="like{{activity.id}}" class="show-like">{{activity.likes}}</small>
+            </a>
+            </div>
+        <button>View</button>
+        <p>{{auction.date_created}}</p>
+        </div> -->
+        </a>
+    </article>
+    {% endfor %}
+    </div>
+
+
+
+
+{{user2.id|json_script:"json-userid1"}}
+{{person.id|json_script:"json-userid2"}}
+{{user2.username|json_script:"json-username1"}}
+{{person.username|json_script:"json-username2"}}
+{{roomName|json_script:"json-roomName"}}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'meet/chat.js' %}"></script>
+{% if user.is_authenticated %}
+<script src="{% static 'meet/script.js' %}"></script>
+{% endif %}
+{% endblock %}

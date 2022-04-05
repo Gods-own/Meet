@@ -1,0 +1,16 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+<form method="POST" action="{% url 'editActivity' activity.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="caption">Caption</label>
+        <!-- <input class="form-control" id="caption" type="text" name="caption" value={{activity.activity}}>         -->
+        <textarea class="form-control" id="caption" name="caption">{{activity.activity}}</textarea>
+    </div>
+    <div>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}

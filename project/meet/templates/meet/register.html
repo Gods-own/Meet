@@ -1,0 +1,136 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block style %}<link href="{% static 'meet/formstyle.css' %}" rel="stylesheet">{% endblock %}
+
+{% block form %}
+
+<div class="form-body">
+  <div class="form-div">
+    <div class="form-image">
+      <h5 class="form-img-txt form-img-txt1">MEET</h5>
+      <div class="form-img-txt form-img-txt2">
+        <h5>REGISTER TO MAKE FRIENDS</h5>
+        <h3>MEET.</h3>
+      </div>
+      <h5 class="form-img-txt form-img-txt3">MEET PEOPLE</h5>
+      <img src="https://images.unsplash.com/photo-1524601500432-1e1a4c71d692?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80">
+    </div>
+    <form class="login-register-form" method="post">
+      {% csrf_token %}
+      <div class="form-header">
+        <input type="text" class="invinscible" value="good">
+        <div>
+          <h2>REGISTRATION</h2>
+     <p>Fill the form to register</p>
+        </div>
+      </div>
+      {% if message %}
+        <div>{{ message }}</div>
+      {% endif %}
+      <div class="form-group">
+           <label>Username</label>
+         <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+     </div>
+     <div class="form-group">
+       <label>Email</label>
+         <input class="form-control" type="email" name="email" placeholder="Email Address">
+     </div>
+     <div class="form-group">
+       <label>Date of Birth</label>
+         <input class="form-control" type="date" name="dateofbirth" placeholder="D.O.B">
+     </div>
+     <div class="form-group gender-div">
+       <label>Gender</label>
+         <div class="form-control gender">
+           <div class="radio-btn">
+             <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male">
+             <!-- <i class="las la-venus"></i> -->
+             <label class="form-check-label" for="exampleRadios1">
+           Male
+         </label>
+           </div>
+           <div class="radio-btn">
+             <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
+             <!-- <i class="las la-mars"></i> -->
+                 <label class="form-check-label" for="exampleRadios2">
+           Female
+         </label>
+           </div>
+         </div>
+       </div>
+     <div class="form-group">
+       <label>Country</label>
+         <select name="country" class="form-control" id="exampleFormControlSelect1">
+             <option selected value="Select">Select</option>
+             <option selected value="Select">Select</option>
+                {% for country in countries %}
+                <option value="{{country.name}}">{{country.name}}</option>
+                {% endfor %}
+           </select>
+     </div>
+     <div class="form-group">
+       <label>Username</label>
+         <input class="form-control" type="password" name="password" placeholder="Password">
+     </div>
+     <div class="form-group">
+       <label>Username</label>
+         <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+     </div>
+     <div class="submit-btn-div form-group">
+       <input type="text" class="invinscible" value="good">
+       <input class="submit-btn" type="submit" value="Register">
+     </div>
+   </form>
+  </div>
+</div>
+
+    <!-- <h2>Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="date" name="dateofbirth" placeholder="D.O.B">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male">
+            <label class="form-check-label" for="exampleRadios1">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
+            <label class="form-check-label" for="exampleRadios2">
+              Female
+            </label>
+          </div>
+        <div class="form-group">
+            <select name="country" class="form-control" id="exampleFormControlSelect1">
+                <option selected value="Select">Select</option>
+                {% for country in countries %}
+                <option value="{{country.name}}">{{country.name}}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a> -->
+
+{% endblock %}

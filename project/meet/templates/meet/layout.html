@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="https://use.fontawesome.com/7a1af13913.js"></script>
+    {% block style %}<link href="{% static 'meet/style.css' %}" rel="stylesheet">{% endblock %}
+</head>
+<body>
+    {% block form %}
+    <div class="modal">
+        <button class="close-btn">X</button>
+ 
+         <div class="post-view-div modal-body">
+
+    </div>
+    
+    </div>
+    <nav class="top-nav">
+    	<div class="nav-div">
+    		<div class="brand-logo"><img class="logo" src="{% static 'meet/images/logo.png' %}" width="50" height="50"></div>
+    		<ul>
+    			<li class="nav-list home"><a href="{% url 'index' %}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+    			<li class="nav-list addPost"><a href="{% url 'createActivity' %}"><i class="fa fa-plus-square" aria-hidden="true"></i></a></li>
+                <li class="nav-list search-icon"><a href="{% url 'search' %}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+    			<li class="nav-list events"><a href="{% url 'event' %}"><i class="fa fa-calendar-o" aria-hidden="true"></i></a></li>
+    			<li class="nav-list profile">
+    				<a><img class="nav-profile-img" src="{% if user.userImage %}{{user.userImage.url}}{% else %}#{% endif %}" width="27" height="27"></a>
+    				<div class="profile-dropdown">
+    					<ul>
+    						<li><a href="{% url 'person' profile.id %}"><i class="fa fa-user" aria-hidden="true"></i><span>Invite</span></a></li>
+    						<li><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Log out</span></a></li>
+    					</ul>
+    				</div>
+    			</li>
+    			<li class="nav-list messages"><a href="{% url 'messages' %}"><i class="fa fa-comment" aria-hidden="true"></i><span class="notification">{{no_of_notifications}}</span></a></li>
+    			<li class="nav-list settings"><a href="{% url 'settings' %}"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+    		</ul>
+    	</div>
+    </nav>
+
+    <main>
+        <div class="main-grid">
+            <section class="main-section">
+                {% block body %}
+                {% endblock %}
+            </section>
+            <section class="search-section">
+                <div>
+           <form class="sideform">
+             <input type="text" name="q" class="side-search" placeholder="Search people">
+             <div class="search-buttons">
+               <button class="btn search-items" type="submit">People</button>
+               <button name="country" class="btn search-items" type="submit">Country</button>
+               <select name="age" class="form-control search-items" id="exampleFormControlSelect1">
+                   <option selected value="">Filter by age</option>
+                   <option value="16-24">16-24</option>
+                   <option value="25-34">25-34</option>
+                   <option value="35-44">35-44</option>
+                   <option value="45-54">45-54</option>
+                   <option value="55-64">55-64</option>
+                   <option value="65-74">65-74</option>
+               </select>
+               <select name="gender" class="form-control search-items" id="exampleFormControlSelect1">
+                   <option selected value="">Filter by gender</option>
+                   <option value="Female">Female</option>
+                   <option value="Male">Male</option>
+               </select>
+             </div>
+           </form>
+ 
+             <div class="search-append">
+           
+             </div>
+         
+     
+             </div>
+            </section>
+        </div>
+        
+    </main>
+
+    <nav class="bottom-nav">
+    	<div class="bottom-nav-div">
+    		<ul>
+    			<li class="home"><a href="{% url 'index' %}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+    			<li class="addPost"><a href="{% url 'createActivity' %}"><i class="fa fa-plus-square" aria-hidden="true"></i></a></li>
+                <li class="search-icon"><a href="{% url 'search' %}"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+    			<li class="events"><a href="{% url 'event' %}"><i class="fa fa-calendar-o" aria-hidden="true"></i></a></li>
+    			<li class="settings"><a href="{% url 'index' %"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+    		</ul>
+    	</div>
+    </nav>
+
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        document.querySelector('.nav-profile-img').addEventListener('click', function() {
+            document.querySelector('.profile-dropdown').classList.toggle('show');
+        })
+    </script>
+    {% block script %}
+    {% endblock %}
+
+    {% endblock %}
+</body>
+</html>

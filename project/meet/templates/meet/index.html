@@ -1,0 +1,53 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="activity-section">
+    {% for activity in activities%}
+<article class="card" data-id="{{activity.id}}">
+    <a class="listing-link">
+    <img src="{% if activity.picture %}{{activity.picture.url}}{% else %}#{% endif %}" width="100" height="100">
+    <!-- <div class="card-body">
+        <h5 class="title"><a href="{% url 'person' activity.poster.id %}">{{activity.poster.username}}</a></h5>
+    <picture>
+        <source srcset="{{auction.product}}">
+        <source srcset="{{auction.product}}">
+        <img src="{{auction.product}}">
+    </picture>
+    <p>{{activity.activity}}</p>
+    <p>{{activity.hobby.hobbies}}</p>
+    <p>Listed by {{auction.seller}}</p>
+    <div class="icons-div">
+        <a class="like-buttons" data-id={{activity.id}}>
+            <button data-id="{{activity.id}}colored" class="colored-heart btn-icon"><i class="las la-heart" aria-hidden="true"></i></button>
+            <button data-id="{{activity.id}}uncolored" class="uncolored-heart btn-icon"><i class="lar la-heart"></i></button>
+            <small id="like{{activity.id}}" class="show-like">{{activity.likes}}</small>
+        </a>
+        </div>
+    <button>View</button>
+    <p>{{auction.date_created}}</p>
+    </div> -->
+    </a>
+</article>
+{% endfor %}
+</div>
+<!-- {% if page_obj.object_list|length > 0 %}
+    <div class="paginator">
+    {% if page_obj.has_previous %}
+    <button><a href="?page={{page_obj.previous_page_number}}">Previous</a></button>
+    {% endif %}
+    <span>Page {{page_obj.number}}</span>
+    {% if page_obj.has_next %}
+    <button><a href="?page={{page_obj.next_page_number}}">Next</a></button>
+    {% endif %}
+    </div>
+     {% endif %} -->
+{% endblock %}
+
+{% if user.is_authenticated %}
+{% block script %}
+<script src="{% static 'meet/script.js' %}"></script>
+<script src="{% static 'meet/search.js' %}"></script>
+{% endblock %}
+{% endif %}

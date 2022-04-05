@@ -1,0 +1,53 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="search-body allposts-div">
+    <form class="main-form" action="{% url 'search' %}">
+        <input class="search-input" type="text" name="q" placeholder="Search">
+        <div class="search-buttons">
+            <button class="btn search-items" type="submit">People</button>
+            <button name="country" class="btn search-items" type="submit">Country</button>
+            <select name="age" class="form-control search-items" id="exampleFormControlSelect1">
+                <option selected value="">Select</option>
+                <option value="16-24">16-24</option>
+                <option value="25-34">25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45-54">45-54</option>
+                <option value="55-64">55-64</option>
+                <option value="65-74">65-74</option>
+            </select>
+            <select name="gender" class="form-control search-items" id="exampleFormControlSelect1">
+                <option selected value="">Select</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+        </div>
+    </form>
+
+    {% if check == "none"%}
+    <p class="notfound" style="text-align: center; margin-top: 20px;">Search names</p>
+    {% elif check == "nothing" %}
+    <p class="notfound" style="text-align: center; margin-top: 20px;">No names found</p>
+    {% else %}
+    <div>
+        <div>
+            {% for result in results %}
+            <div class="search-results">
+                <div>
+                    <img src="{% if user.userImage %}{{user.userImage.url}}{% else %}#{% endif %}" width="30", height="30">
+                </div>
+                <div>
+                    <h4><a style="color: black;" href="">{{result.username}}</a></h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'meet/search.js' %}"></script>
+{% endblock %}

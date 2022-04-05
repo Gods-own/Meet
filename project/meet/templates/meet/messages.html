@@ -1,0 +1,35 @@
+{% extends "meet/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="message-div">
+    <div>
+        {% for room, dm in room_dms %}
+        <div class="messages-list">
+            <div>
+                {% if room.user1|stringformat:"s" != request.user|stringformat:"s" %}
+                <img src="{% if room.user1.userImage %}{{room.user1.userImage.url}}{% else %}#{% endif %}">
+                {% elif room.user2|stringformat:"s" != request.user|stringformat:"s" %}
+                <img src="{% if room.user2.userImage %}{{room.user2.userImage.url}}{% else %}#{% endif %}">
+                {% endif %}
+            </div>
+            <div class="messages-list-last">
+                <div class="msg">
+                    {% if room.user1|stringformat:"s" != request.user|stringformat:"s" %}
+                    <h3><a style="color: black;" href="{% url 'room' room.user1.id room.room %}">{{room.user1.username}}</a></h3>
+                    {% elif room.user2|stringformat:"s" != request.user|stringformat:"s" %}
+                    <h3><a style="color: black;" href="{% url 'room' room.user2.id room.room %}">{{room.user2.username}}</a></h3>
+                    {% endif %}
+                    <small>{{dm.date_added}}</small>
+                </div>
+                <div class="msg">
+                    <p>{{dm.content|truncatewords:4}}</p>
+                    <small>2</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>    
+{% endblock %}
+
